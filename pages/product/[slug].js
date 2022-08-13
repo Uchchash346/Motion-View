@@ -8,13 +8,14 @@ import Layout from '../../components/Layout';
 import Product from '../../models/Product';
 import db from '../../utils/db';
 import { Store } from '../../utils/Store';
+import { AiOutlineArrowLeft } from 'react-icons/ai';
 
 export default function ProductScreen(props) {
     const { product } = props;
     const { state, dispatch } = useContext(Store);
     const router = useRouter();
     if (!product) {
-        return <Layout title="Produt Not Found">Produt Not Found</Layout>;
+        return <Layout title="Product Not Found">Product Not Found</Layout>;
     }
 
     const addToCartHandler = async () => {
@@ -33,7 +34,7 @@ export default function ProductScreen(props) {
     return (
         <Layout title={product.name}>
             <div className="py-2">
-                <Link href="/">back to products</Link>
+                <AiOutlineArrowLeft /><Link href="/"> Back to Home Page</Link>
             </div>
             <div className="grid md:grid-cols-4 md:gap-3">
                 <div className="md:col-span-2">
