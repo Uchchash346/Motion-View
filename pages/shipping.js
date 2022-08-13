@@ -1,13 +1,18 @@
-import { useRouter } from 'next/router';
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import CheckoutWizard from '../components/CheckoutWizard';
-import { Store } from '../utils/Store';
 import Cookies from 'js-cookie';
-import Layout from './../components/Layout';
+import CheckoutWizard from '../components/CheckoutWizard';
+import Layout from '../components/Layout';
+import { Store } from '../utils/Store';
+import { useRouter } from 'next/router';
 
 export default function ShippingScreen() {
-    const { handleSubmit, register, formState: { errors }, setValue, getValues } = useForm();
+    const {
+        handleSubmit,
+        register,
+        formState: { errors },
+        setValue,
+    } = useForm();
 
     const { state, dispatch } = useContext(Store);
     const { cart } = state;
@@ -44,47 +49,40 @@ export default function ShippingScreen() {
         router.push('/payment');
     };
 
-
     return (
-        <Layout title={"Shipping Address"}>
+        <Layout title="Shipping Address">
             <CheckoutWizard activeStep={1} />
             <form
-                className='mx-auto max-w-screen-md'
+                className="mx-auto max-w-screen-md"
                 onSubmit={handleSubmit(submitHandler)}
             >
-                <h1 className='mb-4 text-xl'>Shipping
-                    Address</h1>
-                <div className='mb-4'>
-                    <label htmlFor='fullName'>Full Name</label>
+                <h1 className="mb-4 text-xl">Shipping Address</h1>
+                <div className="mb-4">
+                    <label htmlFor="fullName">Full Name</label>
                     <input
-                        className='w-full'
-                        id='fullName'
+                        className="w-full"
+                        id="fullName"
                         autoFocus
-                        {...register('fullname', {
+                        {...register('fullName', {
                             required: 'Please enter full name',
                         })}
                     />
-                    {errors.fullname && (
-                        <div className='text-red-500'>
-                            {errors.fullName.message}
-                        </div>
+                    {errors.fullName && (
+                        <div className="text-red-500">{errors.fullName.message}</div>
                     )}
                 </div>
-                <div className='mb-4'>
-                    <label htmlFor='address'>Address</label>
+                <div className="mb-4">
+                    <label htmlFor="address">Address</label>
                     <input
-                        className='w-full'
-                        id='address'
-                        autoFocus
+                        className="w-full"
+                        id="address"
                         {...register('address', {
                             required: 'Please enter address',
-                            minLength: { value: 3, message: 'Address is more than 2 words' }
+                            minLength: { value: 3, message: 'Address is more than 2 chars' },
                         })}
                     />
                     {errors.address && (
-                        <div className='text-red-500'>
-                            {errors.address.message}
-                        </div>
+                        <div className="text-red-500">{errors.address.message}</div>
                     )}
                 </div>
                 <div className="mb-4">
@@ -131,7 +129,7 @@ export default function ShippingScreen() {
                 </div>
             </form>
         </Layout>
-    )
+    );
 }
 
 ShippingScreen.auth = true;
